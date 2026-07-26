@@ -13,8 +13,10 @@ or any static host.
   photos, about, promo component, visit (address + hours + map), footer
 - `css/style.css` — brand stylesheet
 - `js/main.js` — SVG icon sprite, mobile nav, scroll reveal, photo fallbacks
-- `assets/photos/` — **drop real photos here** (see `assets/photos/README.md`
-  for the exact filenames; slots show labeled placeholders until then)
+- `assets/photos/` + `assets/brand/` — **drop the real photos, logo, and
+  banner here** (see `assets/photos/README.md` for the exact filenames;
+  slots show labeled placeholders until then, and the header falls back
+  to a text wordmark until `assets/brand/logo.png` exists)
 - `assets/fonts/` — self-hosted Bangers / Montserrat / Poppins woff2
 
 ## Editing content

@@ -3,8 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sutherlin Sips — Sodas, Smoothies, Açaí Bowls &amp; Coffee | Sutherlin, OR</title>
-  <meta name="description" content="Sutherlin Sips is a drive-thru at 1100 W Central Ave in Sutherlin, Oregon serving sodas, smoothies, açaí bowls, coffee and more." />
+  <title>Sips — Sutherlin, OR | Sodas, Smoothies, Açaí Bowls &amp; More</title>
+  <meta name="description" content="Good vibes. Cold sips. Sips is a drive-thru at 1100 W Central Ave in Sutherlin, Oregon serving sodas, smoothies, açaí bowls, coffee and more." />
+  <meta property="og:title" content="Sips — Sutherlin, OR" />
+  <meta property="og:description" content="Good vibes. Cold sips. Refreshing drinks for every kind of sipper." />
+  <!-- Set to an absolute URL once the site has its final domain -->
+  <meta property="og:image" content="assets/brand/banner.jpg" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
 </head>
@@ -12,8 +16,10 @@
 
   <header class="site-header">
     <div class="container header-inner">
-      <a class="logo" href="#top" aria-label="Sutherlin Sips home">
-        <span>S</span><svg class="logo-cup" aria-hidden="true"><use href="#logo-cup"></use></svg><span>ps</span>
+      <!-- Real logo (assets/brand/logo.png); text wordmark shows until the file is added -->
+      <a class="logo" href="#top" aria-label="Sips — Sutherlin, OR — home">
+        <img class="logo-img" src="assets/brand/logo.png" alt="Sips — Sutherlin, OR" />
+        <span class="logo-text"><span>S</span><svg class="logo-cup" aria-hidden="true"><use href="#logo-cup"></use></svg><span>ps</span></span>
       </a>
       <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -38,19 +44,19 @@
         <div class="hero-copy">
           <p class="eyebrow">Drive-thru · Sutherlin, Oregon</p>
           <h1 class="display hero-title">
-            Sutherlin's stop for
-            <span class="underlined">seriously good sips.<svg class="brush-underline" aria-hidden="true"><use href="#brush"></use></svg></span>
+            <span class="line">Good vibes.</span>
+            <span class="line underlined">Cold sips.<svg class="brush-underline" aria-hidden="true"><use href="#brush"></use></svg></span>
           </h1>
-          <p class="lead">Ice-cold sodas, fresh smoothies, açaí bowls, coffee &amp; more — made to order at our drive-thru on Central Ave.</p>
+          <p class="lead">Refreshing drinks for every kind of sipper — sodas, smoothies, açaí bowls, coffee &amp; more at our drive-thru on Central Ave.</p>
           <div class="hero-actions">
             <a href="#menu" class="btn btn-lime">See The Menu</a>
             <a href="https://www.google.com/maps/dir/?api=1&amp;destination=1100+W+Central+Ave,+Sutherlin,+OR+97479" target="_blank" rel="noopener" class="btn">Get Directions</a>
           </div>
         </div>
         <div class="hero-photo-wrap reveal">
-          <svg class="hero-sticker" aria-hidden="true"><use href="#sun-doodle"></use></svg>
-          <figure class="photo-frame hero-photo" data-label="Add hero photo: assets/photos/hero.jpg">
-            <img src="assets/photos/hero.jpg" alt="Colorful Sips drinks from the Sutherlin drive-thru" />
+          <svg class="hero-sticker" aria-hidden="true"><use href="#sun-line"></use></svg>
+          <figure class="photo-frame hero-photo" data-label="Add photo: assets/photos/hero.jpg (the three drinks on the table)">
+            <img src="assets/photos/hero.jpg" alt="Three colorful Sips drinks over crushed ice on a picnic table" />
           </figure>
         </div>
       </div>
@@ -60,8 +66,8 @@
     <section class="serves" id="menu">
       <div class="container">
         <div class="section-head">
-          <p class="eyebrow">What we serve</p>
-          <h2 class="display">Something for everyone</h2>
+          <p class="eyebrow">Sodas and more</p>
+          <h2 class="display">Something for every sipper</h2>
         </div>
         <div class="serves-grid">
           <div class="serve-card reveal">
@@ -105,18 +111,9 @@
           <figure class="photo-frame reveal" data-label="Add photo: assets/photos/featured-3.jpg">
             <img src="assets/photos/featured-3.jpg" alt="A featured Sips drink" />
           </figure>
-          <figure class="photo-frame reveal" data-label="Add photo: assets/photos/featured-4.jpg">
-            <img src="assets/photos/featured-4.jpg" alt="A featured Sips drink" />
-          </figure>
-          <figure class="photo-frame reveal" data-label="Add photo: assets/photos/featured-5.jpg">
-            <img src="assets/photos/featured-5.jpg" alt="A featured Sips drink" />
-          </figure>
-          <figure class="photo-frame reveal" data-label="Add photo: assets/photos/featured-6.jpg">
-            <img src="assets/photos/featured-6.jpg" alt="A featured Sips drink" />
-          </figure>
         </div>
         <p class="featured-note">
-          <a class="btn btn-yellow" href="https://www.facebook.com/p/Sutherlin-Sips-61573799062839/" target="_blank" rel="noopener">
+          <a class="btn btn-yellow" href="https://www.facebook.com/profile.php?id=61573799062839" target="_blank" rel="noopener">
             <svg aria-hidden="true"><use href="#icon-facebook"></use></svg>
             See more on Facebook
           </a>
@@ -135,8 +132,8 @@
           <p>Sips is a locally run drive-thru right on West Central Avenue in Sutherlin, Oregon. We opened in 2025 with a ribbon cutting alongside the Sutherlin Area Chamber, and we've been pouring for our neighbors ever since.</p>
           <p>Swing through on your way to work, after school, or whenever you need something cold — we'll see you at the window.</p>
         </div>
-        <figure class="photo-frame about-photo reveal" data-label="Add photo: assets/photos/about.jpg">
-          <img src="assets/photos/about.jpg" alt="The Sutherlin Sips drive-thru stand" />
+        <figure class="photo-frame about-photo reveal" data-label="Add photo: assets/photos/about.jpg (the lime-green Sips stand)">
+          <img src="assets/photos/about.jpg" alt="The lime-green Sips drive-thru stand in Sutherlin" />
         </figure>
       </div>
     </section>
@@ -152,7 +149,7 @@
             <h2 class="display">This week's specials</h2>
             <p>We post current specials and new flavors on our Facebook page — check what's pouring today.</p>
           </div>
-          <a class="btn" href="https://www.facebook.com/p/Sutherlin-Sips-61573799062839/" target="_blank" rel="noopener">See Specials</a>
+          <a class="btn" href="https://www.facebook.com/profile.php?id=61573799062839" target="_blank" rel="noopener">See Specials</a>
         </div>
       </div>
     </section>
@@ -179,7 +176,7 @@
                 <div>
                   <strong>Hours</strong>
                   <!-- EDITABLE: replace with confirmed hours when available -->
-                  <span>Posted on our <a href="https://www.facebook.com/p/Sutherlin-Sips-61573799062839/" target="_blank" rel="noopener">Facebook page</a></span>
+                  <span>Posted on our <a href="https://www.facebook.com/profile.php?id=61573799062839" target="_blank" rel="noopener">Facebook page</a></span>
                 </div>
               </li>
               <li>
@@ -193,7 +190,7 @@
                 <span class="visit-icon"><svg aria-hidden="true"><use href="#icon-facebook"></use></svg></span>
                 <div>
                   <strong>Facebook</strong>
-                  <a href="https://www.facebook.com/p/Sutherlin-Sips-61573799062839/" target="_blank" rel="noopener">Sutherlin Sips</a>
+                  <a href="https://www.facebook.com/profile.php?id=61573799062839" target="_blank" rel="noopener">Sutherlin Sips</a>
                 </div>
               </li>
             </ul>
@@ -204,7 +201,7 @@
           <div class="photo-frame map-frame reveal">
             <iframe
               src="https://www.google.com/maps?q=1100+W+Central+Ave,+Sutherlin,+OR+97479&amp;output=embed"
-              title="Map to Sutherlin Sips, 1100 W Central Ave, Sutherlin, OR"
+              title="Map to Sips, 1100 W Central Ave, Sutherlin, OR"
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
               allowfullscreen></iframe>
@@ -220,14 +217,14 @@
     <div class="container">
       <div class="footer-grid">
         <div>
-          <a class="logo" href="#top" aria-label="Sutherlin Sips home">
-            <span>S</span><svg class="logo-cup" aria-hidden="true"><use href="#logo-cup"></use></svg><span>ps</span>
+          <a class="logo logo-footer" href="#top" aria-label="Sips — Sutherlin, OR — home">
+            <span class="logo-text"><span>S</span><svg class="logo-cup" aria-hidden="true"><use href="#logo-cup"></use></svg><span>ps</span></span>
           </a>
-          <p>Sodas, smoothies, açaí bowls, coffee &amp; more at the drive-thru on Central Ave.</p>
+          <p>Good vibes. Cold sips. Sodas, smoothies, açaí bowls, coffee &amp; more at the drive-thru on Central Ave.</p>
           <div class="social-links">
-            <a href="https://www.facebook.com/p/Sutherlin-Sips-61573799062839/" target="_blank" rel="noopener" aria-label="Sutherlin Sips on Facebook"><svg><use href="#icon-facebook"></use></svg></a>
-            <a href="https://www.instagram.com/sutherlinsips/" target="_blank" rel="noopener" aria-label="Sutherlin Sips on Instagram"><svg><use href="#icon-instagram"></use></svg></a>
-            <a href="https://www.tiktok.com/@sutherlinsips" target="_blank" rel="noopener" aria-label="Sutherlin Sips on TikTok"><svg><use href="#icon-tiktok"></use></svg></a>
+            <a href="https://www.facebook.com/profile.php?id=61573799062839" target="_blank" rel="noopener" aria-label="Sips on Facebook"><svg><use href="#icon-facebook"></use></svg></a>
+            <a href="https://www.instagram.com/sutherlinsips/" target="_blank" rel="noopener" aria-label="Sips on Instagram"><svg><use href="#icon-instagram"></use></svg></a>
+            <a href="https://www.tiktok.com/@sutherlinsips" target="_blank" rel="noopener" aria-label="Sips on TikTok"><svg><use href="#icon-tiktok"></use></svg></a>
           </div>
         </div>
         <div>
@@ -249,8 +246,8 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <span>© <span data-year>2026</span> Sutherlin Sips.</span>
-        <span>Drive-thru drinks in Sutherlin, Oregon.</span>
+        <span>© <span data-year>2026</span> Sips · Sutherlin, OR.</span>
+        <span>Drive-thru drinks on Central Ave.</span>
       </div>
     </div>
   </footer>

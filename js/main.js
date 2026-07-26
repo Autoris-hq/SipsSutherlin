@@ -21,15 +21,10 @@
     '<symbol id="brush" viewBox="0 0 240 20" preserveAspectRatio="none">' +
     '<path d="M4 13 C60 5 180 3 236 9 C190 11 70 15 10 17 Z" fill="currentColor"/>' +
     "</symbol>" +
-    /* Smiling sun sticker */
-    '<symbol id="sun-doodle" viewBox="0 0 80 80">' +
-    '<g stroke="#ffc83d" stroke-width="5" stroke-linecap="round">' +
-    '<path d="M40 6 L40 0 M63 17 L68 12 M74 40 L80 40 M63 63 L68 68 M40 74 L40 80 M17 63 L12 68 M6 40 L0 40 M17 17 L12 12"/>' +
-    "</g>" +
-    '<circle cx="40" cy="40" r="22" fill="#ffc83d" stroke="#111111" stroke-width="3"/>' +
-    '<circle cx="33" cy="37" r="2.4" fill="#111111"/>' +
-    '<circle cx="47" cy="37" r="2.4" fill="#111111"/>' +
-    '<path d="M32 46 Q40 53 48 46" fill="none" stroke="#111111" stroke-width="3" stroke-linecap="round"/>' +
+    /* Line-art sun, matching the banner artwork */
+    '<symbol id="sun-line" viewBox="0 0 90 90" fill="none" stroke="#ffc83d" stroke-width="4" stroke-linecap="round">' +
+    '<circle cx="45" cy="45" r="16"/>' +
+    '<path d="M45 8 L45 18 M71 19 L64 26 M82 45 L72 45 M71 71 L64 64 M45 82 L45 72 M19 71 L26 64 M8 45 L18 45 M19 19 L26 26"/>' +
     "</symbol>" +
     /* Category icons — line style */
     '<symbol id="icon-soda" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">' +
@@ -109,6 +104,20 @@
           toggle.setAttribute("aria-expanded", "false");
         }
       });
+    }
+
+    /* Header logo: fall back to the text wordmark until assets/brand/logo.png exists */
+    var logoImg = document.querySelector(".logo .logo-img");
+    if (logoImg) {
+      var logoLink = logoImg.closest(".logo");
+      var markLogoMissing = function () {
+        logoLink.classList.add("logo-missing");
+      };
+      if (logoImg.complete && logoImg.naturalWidth === 0) {
+        markLogoMissing();
+      } else {
+        logoImg.addEventListener("error", markLogoMissing);
+      }
     }
 
     /* Missing-photo fallback: mark frames whose image hasn't been added yet */

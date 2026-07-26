@@ -200,12 +200,34 @@ h2.display {
 
 .logo {
   display: inline-flex;
-  align-items: baseline;
+  align-items: center;
   font-family: var(--font-heading);
   font-weight: 900;
   font-size: 2.05rem;
   letter-spacing: -0.03em;
   line-height: 1;
+}
+
+/* Real logo image; on the light header, multiply hides a white background */
+.logo-img {
+  height: 54px;
+  width: auto;
+  mix-blend-mode: multiply;
+}
+
+/* Text wordmark fallback — shown only until assets/brand/logo.png exists */
+.logo .logo-text {
+  display: none;
+  align-items: baseline;
+}
+
+.logo.logo-missing .logo-img {
+  display: none;
+}
+
+.logo.logo-missing .logo-text,
+.logo-footer .logo-text {
+  display: inline-flex;
 }
 
 .logo .logo-cup {
@@ -312,11 +334,46 @@ h2.display {
   position: relative;
 }
 
+/* Organic lime blob + halftone dots, echoing the banner artwork */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -90px;
+  left: -110px;
+  width: 320px;
+  height: 280px;
+  background: var(--lime);
+  opacity: 0.22;
+  border-radius: 58% 42% 55% 45% / 55% 48% 52% 45%;
+  pointer-events: none;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 26px;
+  right: -50px;
+  width: 230px;
+  height: 160px;
+  background-image: radial-gradient(var(--lime) 2.5px, transparent 3px);
+  background-size: 18px 18px;
+  opacity: 0.4;
+  border-radius: 40px;
+  pointer-events: none;
+}
+
 .hero-inner {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 1.05fr 1fr;
   gap: 3.2rem;
   align-items: center;
+}
+
+.hero-title .line {
+  display: block;
+  white-space: nowrap;
 }
 
 .hero .lead {
@@ -348,10 +405,12 @@ h2.display {
   z-index: 2;
 }
 
+/* "Cold sips." in lime, per the banner artwork */
 .hero-title .underlined {
   position: relative;
   display: inline-block;
-  color: var(--deep);
+  color: var(--lime);
+  -webkit-text-stroke: 1px var(--green);
 }
 
 .brush-underline {
@@ -360,7 +419,7 @@ h2.display {
   bottom: -0.26em;
   width: 100%;
   height: 0.3em;
-  color: var(--lime);
+  color: var(--green);
 }
 
 /* ---------- Section headers ---------- */
