@@ -21,6 +21,12 @@ automatically. Until a file exists, its slot shows a labeled placeholder
 | `featured-2.jpg` | Featured grid (square) | The littlest Sips fan (green bow + heart sunglasses) |
 | `featured-3.jpg` | Featured grid (square) | Any drink close-up from the video / Facebook page |
 
+## Video (goes in `assets/video/`)
+
+| File | Where it appears | Notes |
+| --- | --- | --- |
+| `video/sips.mp4` | "Sips in action" section (16:9) | Export MP4 (H.264 + AAC) from CapCut — 1080p or 720p. GitHub's web uploader tops out at 25 MB per file, and git pushes at 100 MB, so use a web-friendly bitrate. |
+
 Tips: JPG around 1200–1600px on the long edge keeps the page fast.
 Square crops look best in the featured grid.
 

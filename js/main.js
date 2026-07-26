@@ -136,6 +136,28 @@
       }
     });
 
+    /* Missing-video fallback: same treatment as photos */
+    document.querySelectorAll(".video-frame video").forEach(function (video) {
+      var frame = video.closest(".video-frame");
+      var markMissing = function () {
+        frame.classList.add("missing");
+      };
+      video.addEventListener(
+        "error",
+        function () {
+          markMissing();
+        },
+        true
+      );
+      var src = video.querySelector("source");
+      if (src) {
+        src.addEventListener("error", markMissing);
+      }
+      video.addEventListener("loadedmetadata", function () {
+        frame.classList.remove("missing");
+      });
+    });
+
     /* Scroll reveal */
     var revealed = document.querySelectorAll(".reveal");
     if ("IntersectionObserver" in window) {
