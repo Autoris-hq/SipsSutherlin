@@ -136,23 +136,18 @@
       }
     });
 
-    /* Missing-video fallback: same treatment as photos */
+    /* Missing-video fallback: mark the frame only when NO source is playable */
     document.querySelectorAll(".video-frame video").forEach(function (video) {
       var frame = video.closest(".video-frame");
-      var markMissing = function () {
-        frame.classList.add("missing");
-      };
       video.addEventListener(
         "error",
         function () {
-          markMissing();
+          if (video.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) {
+            frame.classList.add("missing");
+          }
         },
         true
       );
-      var src = video.querySelector("source");
-      if (src) {
-        src.addEventListener("error", markMissing);
-      }
       video.addEventListener("loadedmetadata", function () {
         frame.classList.remove("missing");
       });
