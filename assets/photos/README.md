@@ -16,11 +16,13 @@ automatically. Until a file exists, its slot shows a labeled placeholder
 | File | Where it appears | Which supplied asset |
 | --- | --- | --- |
 | `hero.jpg` | Hero, top of page (4:3) | The three drinks on the picnic table |
-| `about.jpg` | About section (4:3) | The lime-green Sips stand |
-| `featured-1.jpg` … `featured-3.jpg` | Featured Sips grid (square) | Drink close-ups from the video / Facebook page |
+| `about.jpg` | About section (4:3) | The lime-green Sips stand (couple at the window) |
+| `featured-1.jpg` | Featured grid (square) | The açaí bowl with berries and banana |
+| `featured-2.jpg` | Featured grid (square) | The littlest Sips fan (green bow + heart sunglasses) |
+| `featured-3.jpg` | Featured grid (square) | Any drink close-up from the video / Facebook page |
 
 Tips: JPG around 1200–1600px on the long edge keeps the page fast.
 Square crops look best in the featured grid.
 
-After the site has its final domain, change the `og:image` tag in
-`index.html` to the absolute URL of `assets/brand/banner.jpg`.
+The `og:image` tag in `index.html` points at the GitHub Pages URL;
+update the domain if the site moves to its own domain.
