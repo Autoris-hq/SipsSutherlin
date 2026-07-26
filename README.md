@@ -1,37 +1,53 @@
-# Sips — Website
+# Sutherlin Sips — Website
 
-Marketing website for **Sips**, the kids' drink stand in Sutherlin, Oregon.
-*Good vibes. Cold sips. Happy kids.*
+Single-page website for **Sutherlin Sips**, the drive-thru at
+1100 W Central Ave, Sutherlin, Oregon — sodas, smoothies, açaí bowls,
+coffee & more.
 
-## Stack
+Pure static HTML/CSS/JS, no build step. Hosts on GitHub Pages, Netlify,
+or any static host.
 
-Pure static HTML/CSS/JS — no build step, no dependencies. Ready to host on
-GitHub Pages, Netlify, or any static host.
+## Structure
 
-- `index.html` — home (hero, brand values, find-a-sips band, menu preview)
-- `menu.html` — full drink menu with add-ons
-- `locations.html` — current + upcoming locations
-- `about.html` — brand story and values
-- `events.html` — Kids Drink Free days, bookings, upcoming events
-- `contact.html` — contact info + form (demo form, no backend yet)
+- `index.html` — the whole site: hero, what Sips serves, featured drink
+  photos, about, promo component, visit (address + hours + map), footer
 - `css/style.css` — brand stylesheet
-- `js/main.js` — SVG sprite (cups, icons, illustrations), mobile nav, scroll reveal
+- `js/main.js` — SVG icon sprite, mobile nav, scroll reveal, photo fallbacks
+- `assets/photos/` + `assets/brand/` — **drop the real photos, logo, and
+  banner here** (see `assets/photos/README.md` for the exact filenames;
+  slots show labeled placeholders until then, and the header falls back
+  to a text wordmark until `assets/brand/logo.png` exists)
+- `assets/fonts/` — self-hosted Bangers / Montserrat / Poppins woff2
 
-## Brand
+## Editing content
+
+Facts on the page are limited to what's publicly verified (address,
+categories served, social links). Spots that need owner input are marked
+with `EDITABLE` comments in `index.html`:
+
+- **Hours** — currently points to Facebook; replace with real hours.
+- **Promo** — the yellow promo card defaults to "specials on Facebook";
+  swap in a confirmed offer's heading/text when one is active.
+- **About** — two short sentences, safe to reword.
+
+Phone number: not published anywhere we could verify, so it's omitted.
+Add it to the Visit list and footer when confirmed.
+
+## Brand system
 
 | Token | Value |
 | --- | --- |
-| Sips green | `#7AC943` |
-| Leaf green | `#4CAF50` |
+| Lime | `#7AC943` |
+| Green | `#4CAF50` |
+| Deep green | `#2E6B30` |
 | Ink | `#111111` |
-| Sunshine | `#FFC83D` |
 | Cream | `#F7F7F2` |
-| Headings | Bangers / Montserrat ExtraBold |
-| Body | Poppins / Montserrat |
+| Accents | aqua `#45D0E8` · coral `#FF6B6B` · yellow `#FFC83D` |
+| Display | Bangers |
+| Headings | Montserrat ExtraBold |
+| Body | Poppins |
 
-All artwork (drink cups, icons, storefront) is inline SVG generated from the
-brand guide — swap in real photography by replacing the `<svg>` illustration
-blocks (`.band-photo`, `.framed-illustration`, `.loc-illustration`).
+Rounded image containers, 3px ink outlines, offset solid shadows.
 
 ## Local preview
 
