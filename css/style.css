@@ -210,7 +210,7 @@ h2.display {
 
 /* Real logo image; on the light header, multiply hides a white background */
 .logo-img {
-  height: 54px;
+  height: 62px;
   width: auto;
   mix-blend-mode: multiply;
 }
@@ -550,6 +550,16 @@ h2.display {
 }
 
 .video-frame.missing video {
+  display: none;
+}
+
+/* On the public site, hide unfilled featured slots and the whole video
+   section rather than showing "add photo" placeholders */
+.featured-grid .photo-frame.missing {
+  display: none;
+}
+
+.video-section.hidden {
   display: none;
 }
 
