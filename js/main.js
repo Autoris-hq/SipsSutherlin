@@ -95,9 +95,21 @@
     var q = function (sel) {
       return document.querySelector(sel);
     };
+    /* The CMS saves media paths with a leading slash; the site is hosted
+       under a subpath (GitHub Pages project site), so make them relative. */
+    var mediaPath = function (p) {
+      if (typeof p !== "string" || !p) {
+        return "";
+      }
+      if (p.charAt(0) === "/" && p.charAt(1) !== "/") {
+        return p.slice(1);
+      }
+      return p;
+    };
     var setImg = function (sel, src) {
       var img = q(sel);
-      if (img && typeof src === "string" && src) {
+      src = mediaPath(src);
+      if (img && src) {
         img.src = src;
       }
     };
@@ -131,14 +143,16 @@
       });
     }
     var video = q(".video-frame video");
-    if (video && typeof data.video === "string" && data.video) {
+    var videoSrc = mediaPath(data.video);
+    if (video && videoSrc) {
       var source = video.querySelector("source");
-      if (source && source.getAttribute("src") !== data.video) {
-        source.src = data.video;
+      if (source && source.getAttribute("src") !== videoSrc) {
+        source.src = videoSrc;
         video.load();
       }
-      if (typeof data.poster === "string" && data.poster) {
-        video.poster = data.poster;
+      var posterSrc = mediaPath(data.poster);
+      if (posterSrc) {
+        video.poster = posterSrc;
       }
     }
     if (Array.isArray(data.featured) && data.featured.length) {
@@ -146,14 +160,15 @@
       if (grid) {
         grid.innerHTML = "";
         data.featured.forEach(function (item) {
-          if (!item || typeof item.image !== "string" || !item.image) {
+          var imgSrc = item && mediaPath(item.image);
+          if (!imgSrc) {
             return;
           }
           var fig = document.createElement("figure");
           fig.className = "photo-frame reveal visible";
-          fig.setAttribute("data-label", "Add photo: " + item.image);
+          fig.setAttribute("data-label", "Add photo: " + imgSrc);
           var img = document.createElement("img");
-          img.src = item.image;
+          img.src = imgSrc;
           img.alt = item.alt || "A featured Sips drink";
           fig.appendChild(img);
           grid.appendChild(fig);
