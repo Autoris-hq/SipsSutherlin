@@ -139,17 +139,24 @@
     /* Missing-video fallback: mark the frame only when NO source is playable */
     document.querySelectorAll(".video-frame video").forEach(function (video) {
       var frame = video.closest(".video-frame");
+      var section = video.closest(".video-section");
       video.addEventListener(
         "error",
         function () {
           if (video.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) {
             frame.classList.add("missing");
+            if (section) {
+              section.classList.add("hidden");
+            }
           }
         },
         true
       );
       video.addEventListener("loadedmetadata", function () {
         frame.classList.remove("missing");
+        if (section) {
+          section.classList.remove("hidden");
+        }
       });
     });
 
