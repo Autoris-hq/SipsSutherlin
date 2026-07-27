@@ -19,6 +19,32 @@ or any static host.
   to a text wordmark until `assets/brand/logo.png` exists)
 - `assets/fonts/` — self-hosted Bangers / Montserrat / Poppins woff2
 
+## Owner admin (no code needed)
+
+The site has a built-in admin panel at **`/admin/`**
+(https://autoris-hq.github.io/SipsSutherlin/admin/) powered by
+[Sveltia CMS](https://github.com/sveltia/sveltia-cms). Owners can change
+every photo, the video, the "See The Menu" / "See Specials" button links,
+and the About section. Saving publishes automatically in about a minute.
+
+**One-time setup per owner:**
+
+1. Create a GitHub account (free) and get added as a collaborator on this
+   repo with **Write** access (repo Settings → Collaborators).
+2. Create a fine-grained personal access token at
+   https://github.com/settings/personal-access-tokens/new —
+   Repository access: *Only select repositories* → this repo;
+   Permissions: *Contents → Read and write*. Set a long expiration.
+3. Open `/admin/`, choose **Sign in with GitHub**, and use the
+   token option, pasting the token. The browser remembers it.
+
+**Editing:** open `/admin/` → *Page Content* → change fields / upload
+images → **Save**. Uploads land in `assets/uploads/`; all editable text
+and paths live in `content/site.json`, which the page reads at load.
+
+Video tip: upload MP4 (H.264) only — iPhone/CapCut HEVC exports won't
+play in Chrome or Firefox.
+
 ## Editing content
 
 Facts on the page are limited to what's publicly verified (address,

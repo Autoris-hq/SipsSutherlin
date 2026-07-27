@@ -1,0 +1,57 @@
+backend:
+  name: github
+  repo: Autoris-hq/SipsSutherlin
+  branch: main
+
+site_url: https://autoris-hq.github.io/SipsSutherlin/
+media_folder: "assets/uploads"
+public_folder: "assets/uploads"
+
+collections:
+  - name: site
+    label: Website Content
+    files:
+      - name: content
+        label: Page Content
+        file: content/site.json
+        format: json
+        fields:
+          - label: "Hero photo (top of page)"
+            name: heroImage
+            widget: image
+            hint: "Landscape or square works best. JPG around 1200px wide keeps the page fast."
+          - label: "Featured photos"
+            name: featured
+            widget: list
+            summary: "{{fields.alt}}"
+            hint: "The grid shows these in order. Add, remove, or reorder freely."
+            fields:
+              - { label: Photo, name: image, widget: image }
+              - { label: "Photo description (for accessibility)", name: alt, widget: string, required: false }
+          - label: "Video"
+            name: video
+            widget: file
+            required: false
+            hint: "MP4 (H.264) strongly recommended — iPhone/CapCut HEVC exports won't play in Chrome. Keep it under ~50 MB."
+          - label: "Video poster image (shown before play)"
+            name: poster
+            widget: image
+            required: false
+          - label: "About photo"
+            name: aboutImage
+            widget: image
+          - label: "About heading"
+            name: aboutHeading
+            widget: string
+          - label: "About text"
+            name: aboutBody
+            widget: text
+            hint: "Blank line between paragraphs."
+          - label: "'See The Menu' button link"
+            name: menuLink
+            widget: string
+            hint: "Use #menu to scroll to the menu section, or paste a full URL (e.g. an online-ordering page)."
+          - label: "'See Specials' button link"
+            name: specialsLink
+            widget: string
+            hint: "Usually your Facebook page URL."
