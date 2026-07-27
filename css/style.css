@@ -553,12 +553,7 @@ h2.display {
   display: none;
 }
 
-/* On the public site, hide unfilled featured slots and the whole video
-   section rather than showing "add photo" placeholders */
-.featured-grid .photo-frame.missing {
-  display: none;
-}
-
+/* Hide the video section when no video is playable */
 .video-section.hidden {
   display: none;
 }

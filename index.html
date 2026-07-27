@@ -49,7 +49,7 @@
           </h1>
           <p class="lead">Refreshing drinks for every kind of sipper — sodas, smoothies, açaí bowls, coffee &amp; more at our drive-thru on Central Ave.</p>
           <div class="hero-actions">
-            <a href="#menu" class="btn btn-lime">See The Menu</a>
+            <a href="#menu" class="btn btn-lime" data-edit-menu>See The Menu</a>
             <a href="https://www.google.com/maps/dir/?api=1&amp;destination=1100+W+Central+Ave,+Sutherlin,+OR+97479" target="_blank" rel="noopener" class="btn">Get Directions</a>
           </div>
         </div>
@@ -141,11 +141,12 @@
       <div class="container about-inner">
         <div class="reveal">
           <p class="eyebrow">About Sips</p>
-          <h2 class="display">Made in Sutherlin</h2>
-          <!-- EDITABLE: short business blurb. Verified: locally operated drive-thru,
-               opened 2025 with a Sutherlin Area Chamber ribbon cutting. -->
-          <p>Sips is a locally run drive-thru right on West Central Avenue in Sutherlin, Oregon. We opened in 2025 with a ribbon cutting alongside the Sutherlin Area Chamber, and we've been pouring for our neighbors ever since.</p>
-          <p>Swing through on your way to work, after school, or whenever you need something cold — we'll see you at the window.</p>
+          <h2 class="display" data-edit-about-heading>Made in Sutherlin</h2>
+          <!-- Editable via /admin — content lives in content/site.json -->
+          <div data-edit-about-body>
+            <p>Sips is a locally run drive-thru right on West Central Avenue in Sutherlin, Oregon. We opened in 2025 with a ribbon cutting alongside the Sutherlin Area Chamber, and we've been pouring for our neighbors ever since.</p>
+            <p>Swing through on your way to work, after school, or whenever you need something cold — we'll see you at the window.</p>
+          </div>
         </div>
         <figure class="photo-frame about-photo reveal" data-label="Add photo: assets/photos/about.jpg (the lime-green Sips stand)">
           <img src="assets/photos/about.jpg" alt="The lime-green Sips drive-thru stand in Sutherlin" />
@@ -164,7 +165,7 @@
             <h2 class="display">This week's specials</h2>
             <p>We post current specials and new flavors on our Facebook page — check what's pouring today.</p>
           </div>
-          <a class="btn" href="https://www.facebook.com/profile.php?id=61573799062839" target="_blank" rel="noopener">See Specials</a>
+          <a class="btn" href="https://www.facebook.com/profile.php?id=61573799062839" target="_blank" rel="noopener" data-edit-specials>See Specials</a>
         </div>
       </div>
     </section>
@@ -257,6 +258,7 @@
             <li><a href="#featured">Featured Sips</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#visit">Visit</a></li>
+            <li><a href="admin/">Owner Login</a></li>
           </ul>
         </div>
       </div>

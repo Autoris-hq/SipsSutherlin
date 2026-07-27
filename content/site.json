@@ -1,0 +1,24 @@
+{
+  "heroImage": "assets/photos/hero.jpg",
+  "aboutImage": "assets/photos/about.jpg",
+  "featured": [
+    {
+      "image": "assets/photos/featured-1.jpg",
+      "alt": "An açaí bowl topped with blueberries, strawberries, banana, and coconut"
+    },
+    {
+      "image": "assets/photos/featured-2.jpg",
+      "alt": "Sips' littlest fan in a green bow and heart sunglasses in front of the stand"
+    },
+    {
+      "image": "assets/photos/featured-3.jpg",
+      "alt": "A featured Sips drink"
+    }
+  ],
+  "video": "assets/video/sips.mp4",
+  "poster": "assets/video/poster.jpg",
+  "menuLink": "#menu",
+  "specialsLink": "https://www.facebook.com/profile.php?id=61573799062839",
+  "aboutHeading": "Made in Sutherlin",
+  "aboutBody": "Sips is a locally run drive-thru right on West Central Avenue in Sutherlin, Oregon. We opened in 2025 with a ribbon cutting alongside the Sutherlin Area Chamber, and we've been pouring for our neighbors ever since.\n\nSwing through on your way to work, after school, or whenever you need something cold — we'll see you at the window."
+}

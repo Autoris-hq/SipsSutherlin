@@ -85,6 +85,83 @@
     "</symbol>" +
     "</svg>";
 
+  /* Apply owner-editable content from content/site.json (edited via /admin).
+     Every step is guarded so a partial or missing file never breaks the page —
+     the baked-in HTML is the fallback. */
+  function hydrate(data) {
+    if (!data || typeof data !== "object") {
+      return;
+    }
+    var q = function (sel) {
+      return document.querySelector(sel);
+    };
+    var setImg = function (sel, src) {
+      var img = q(sel);
+      if (img && typeof src === "string" && src) {
+        img.src = src;
+      }
+    };
+    var setHref = function (sel, href) {
+      var a = q(sel);
+      if (a && typeof href === "string" && href) {
+        a.href = href;
+        // keep in-page anchors from opening a new tab
+        if (href.charAt(0) === "#") {
+          a.removeAttribute("target");
+        }
+      }
+    };
+    setImg(".hero-photo img", data.heroImage);
+    setImg(".about-photo img", data.aboutImage);
+    setHref("[data-edit-menu]", data.menuLink);
+    setHref("[data-edit-specials]", data.specialsLink);
+    var heading = q("[data-edit-about-heading]");
+    if (heading && typeof data.aboutHeading === "string" && data.aboutHeading) {
+      heading.textContent = data.aboutHeading;
+    }
+    var body = q("[data-edit-about-body]");
+    if (body && typeof data.aboutBody === "string" && data.aboutBody) {
+      body.innerHTML = "";
+      data.aboutBody.split(/\n\s*\n/).forEach(function (text) {
+        var p = document.createElement("p");
+        p.textContent = text.trim();
+        if (p.textContent) {
+          body.appendChild(p);
+        }
+      });
+    }
+    var video = q(".video-frame video");
+    if (video && typeof data.video === "string" && data.video) {
+      var source = video.querySelector("source");
+      if (source && source.getAttribute("src") !== data.video) {
+        source.src = data.video;
+        video.load();
+      }
+      if (typeof data.poster === "string" && data.poster) {
+        video.poster = data.poster;
+      }
+    }
+    if (Array.isArray(data.featured) && data.featured.length) {
+      var grid = q(".featured-grid");
+      if (grid) {
+        grid.innerHTML = "";
+        data.featured.forEach(function (item) {
+          if (!item || typeof item.image !== "string" || !item.image) {
+            return;
+          }
+          var fig = document.createElement("figure");
+          fig.className = "photo-frame reveal visible";
+          fig.setAttribute("data-label", "Add photo: " + item.image);
+          var img = document.createElement("img");
+          img.src = item.image;
+          img.alt = item.alt || "A featured Sips drink";
+          fig.appendChild(img);
+          grid.appendChild(fig);
+        });
+      }
+    }
+  }
+
   function init() {
     var mount = document.createElement("div");
     mount.innerHTML = SPRITE;
@@ -106,6 +183,23 @@
       });
     }
 
+    /* Load owner-editable content, then wire media fallbacks against the
+       final srcs. The page works unchanged if the fetch fails (offline,
+       file://, or missing content file). */
+    fetch("content/site.json", { cache: "no-cache" })
+      .then(function (res) {
+        return res.ok ? res.json() : null;
+      })
+      .catch(function () {
+        return null;
+      })
+      .then(function (data) {
+        hydrate(data);
+        finishInit();
+      });
+  }
+
+  function finishInit() {
     /* Header logo: fall back to the text wordmark until assets/brand/logo.png exists */
     var logoImg = document.querySelector(".logo .logo-img");
     if (logoImg) {
