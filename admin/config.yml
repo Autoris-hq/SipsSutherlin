@@ -3,7 +3,7 @@ backend:
   repo: Autoris-hq/SipsSutherlin
   branch: main
 
-site_url: https://autoris-hq.github.io/SipsSutherlin/
+site_url: https://sutherlinsips.com/
 media_folder: "assets/uploads"
 public_folder: "assets/uploads"
 
