@@ -12,5 +12,25 @@
        has write access, using "Sign In Using Access Token" with a
        fine-grained personal access token (see repo README). -->
   <script src="sveltia-cms.js"></script>
+  <script>
+    /* Our setup has no OAuth relay, so the "Sign In with GitHub" button
+       always dead-ends at a Netlify 404. Hide it, leaving only the
+       working "Sign In Using Access Token" option. */
+    (function () {
+      function hideOAuthButton(root) {
+        root.querySelectorAll("button").forEach(function (btn) {
+          var label = (btn.textContent || "").trim();
+          if (/^Sign In with /i.test(label)) {
+            btn.style.display = "none";
+          }
+        });
+      }
+      var observer = new MutationObserver(function () {
+        hideOAuthButton(document);
+      });
+      observer.observe(document.documentElement, { childList: true, subtree: true });
+      hideOAuthButton(document);
+    })();
+  </script>
 </body>
 </html>
