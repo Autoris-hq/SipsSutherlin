@@ -19,24 +19,32 @@ or any static host.
   to a text wordmark until `assets/brand/logo.png` exists)
 - `assets/fonts/` — self-hosted Bangers / Montserrat / Poppins woff2
 
-## Owner admin (no code needed)
+## Owner admin (no code, no tokens)
 
-The site has a built-in admin panel at **`/admin/`**
-(https://autoris-hq.github.io/SipsSutherlin/admin/) powered by
+The admin panel lives at **https://sutherlinsips.com/admin/** (also the
+"Owner Login" link in the site footer), powered by
 [Sveltia CMS](https://github.com/sveltia/sveltia-cms). Owners can change
 every photo, the video, the "See The Menu" / "See Specials" button links,
 and the About section. Saving publishes automatically in about a minute.
 
-**One-time setup per owner:**
+**Owner login:** enter your email → receive a 6-digit code → you're in.
+Only the emails allowed in the Cloudflare Access policy can get codes.
+No passwords, no tokens — the Worker (`worker.js`) holds the GitHub
+credential server-side and only honors requests that passed the email
+gate (it verifies the Cloudflare Access JWT).
 
-1. Create a GitHub account (free) and get added as a collaborator on this
-   repo with **Write** access (repo Settings → Collaborators).
-2. Create a fine-grained personal access token at
-   https://github.com/settings/personal-access-tokens/new —
-   Repository access: *Only select repositories* → this repo;
-   Permissions: *Contents → Read and write*. Set a long expiration.
-3. Open `/admin/`, choose **Sign in with GitHub**, and use the
-   token option, pasting the token. The browser remembers it.
+**Maintainer setup (one time), in the Cloudflare dashboard:**
+
+1. Zero Trust → Access → the `Sips Admin` application must cover BOTH
+   hostnames (`sutherlinsips.com` and `www.sutherlinsips.com`) with BOTH
+   paths `admin*` and `api*`, policy allowing the owner emails,
+   login method One-time PIN.
+2. Workers → `sipssutherlin` → Settings → Variables and Secrets:
+   - `GITHUB_TOKEN` (secret): a **classic** PAT with `repo` scope
+     (classic, because the CMS also uses GitHub's GraphQL API)
+   - `ACCESS_TEAM_DOMAIN` (var): e.g. `yourteam.cloudflareaccess.com`
+   - `ACCESS_AUD` (var): the Access application's Audience (AUD) tag,
+     shown on the application's overview page
 
 **Editing:** open `/admin/` → *Page Content* → change fields / upload
 images → **Save**. Uploads land in `assets/uploads/`; all editable text

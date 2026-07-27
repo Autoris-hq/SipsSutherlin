@@ -31,6 +31,43 @@
       observer.observe(document.documentElement, { childList: true, subtree: true });
       hideOAuthButton(document);
     })();
+
+    /* Auto sign-in on the live site: the Worker proxy supplies the real
+       GitHub credentials server-side (gated by Cloudflare Access), so the
+       CMS just needs any token value. Click through the dialog so owners
+       never see it. Runs once per page load; the manual buttons remain
+       as a fallback if anything changes. */
+    (function () {
+      if (!/(^|\.)sutherlinsips\.com$/.test(location.hostname)) {
+        return;
+      }
+      var attempts = 0;
+      var timer = setInterval(function () {
+        attempts++;
+        if (attempts > 40) {
+          clearInterval(timer);
+          return;
+        }
+        var buttons = Array.prototype.slice.call(document.querySelectorAll("button"));
+        var input = document.querySelector("input[type=text], input[type=password]");
+        var signIn = buttons.find(function (b) {
+          return b.textContent.trim() === "Sign In";
+        });
+        if (input && signIn) {
+          input.value = "access-gated-proxy";
+          input.dispatchEvent(new Event("input", { bubbles: true }));
+          signIn.click();
+          clearInterval(timer);
+          return;
+        }
+        var tokenBtn = buttons.find(function (b) {
+          return /Access Token/i.test(b.textContent);
+        });
+        if (tokenBtn) {
+          tokenBtn.click();
+        }
+      }, 250);
+    })();
   </script>
 </body>
 </html>
