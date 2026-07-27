@@ -2,6 +2,9 @@ backend:
   name: github
   repo: Autoris-hq/SipsSutherlin
   branch: main
+  # GitHub API calls go through our Worker, which holds the token
+  # server-side (see worker.js). GraphQL derives to /api/graphql.
+  api_root: https://sutherlinsips.com/api/v3
 
 site_url: https://sutherlinsips.com/
 media_folder: "assets/uploads"
