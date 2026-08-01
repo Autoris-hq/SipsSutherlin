@@ -2,6 +2,14 @@
   "name": "sipssutherlin",
   "main": "worker.js",
   "compatibility_date": "2026-07-01",
+  // Non-secret Access verification settings (the GITHUB_TOKEN secret is
+  // set in the dashboard and persists across deploys). Defining these
+  // here keeps wrangler deploys from wiping them.
+  "keep_vars": true,
+  "vars": {
+    "ACCESS_TEAM_DOMAIN": "autoris.cloudflareaccess.com",
+    "ACCESS_AUD": "84394424ca2e83b3722e58493d644ea83139512d0bab62fbb8df83a17124445e"
+  },
   "assets": {
     "directory": ".",
     "binding": "ASSETS"
