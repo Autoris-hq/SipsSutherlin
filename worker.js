@@ -32,10 +32,19 @@ function decodeJwtPart(s) {
   return JSON.parse(new TextDecoder().decode(b64uToBytes(s)));
 }
 
+function jsonError(message, status) {
+  return new Response(JSON.stringify({ message: message }), {
+    status: status,
+    headers: { "content-type": "application/json" },
+  });
+}
+
 async function verifyAccessJwt(request, env) {
   if (!env.ACCESS_TEAM_DOMAIN || !env.ACCESS_AUD) {
     return false; // fail closed until Access details are configured
   }
+  // tolerate a team domain pasted with a protocol or trailing slash
+  const teamDomain = env.ACCESS_TEAM_DOMAIN.replace(/^https?:\/\//, "").replace(/\/+$/, "");
   const token = request.headers.get("Cf-Access-Jwt-Assertion");
   if (!token) {
     return false;
@@ -60,7 +69,7 @@ async function verifyAccessJwt(request, env) {
     return false;
   }
   if (!certsCache.keys || Date.now() - certsCache.fetched > 3600 * 1000) {
-    const res = await fetch(`https://${env.ACCESS_TEAM_DOMAIN}/cdn-cgi/access/certs`);
+    const res = await fetch(`https://${teamDomain}/cdn-cgi/access/certs`);
     if (!res.ok) {
       return false;
     }
@@ -87,10 +96,13 @@ async function verifyAccessJwt(request, env) {
 
 async function proxyGithub(request, env, url) {
   if (!env.GITHUB_TOKEN) {
-    return new Response("GitHub proxy is not configured (missing GITHUB_TOKEN).", { status: 503 });
+    return jsonError("GitHub proxy is not configured: the GITHUB_TOKEN secret is missing on the Worker.", 503);
+  }
+  if (!env.ACCESS_TEAM_DOMAIN || !env.ACCESS_AUD) {
+    return jsonError("GitHub proxy is not configured: ACCESS_TEAM_DOMAIN / ACCESS_AUD variables are missing on the Worker.", 503);
   }
   if (!(await verifyAccessJwt(request, env))) {
-    return new Response("Unauthorized", { status: 401 });
+    return jsonError("Unauthorized: request did not carry a valid Cloudflare Access login.", 401);
   }
   const target =
     url.pathname === "/api/graphql"
