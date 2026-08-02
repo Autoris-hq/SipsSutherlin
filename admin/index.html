@@ -16,16 +16,23 @@
       if (!/(^|\.)sutherlinsips\.com$/.test(location.hostname)) {
         return;
       }
+      var record = null;
       try {
-        var existing = localStorage.getItem("sveltia-cms.user");
-        if (!existing || !JSON.parse(existing).token) {
+        record = JSON.parse(localStorage.getItem("sveltia-cms.user") || "null");
+      } catch (e) {
+        record = null; // corrupt leftover value — overwrite it below
+      }
+      if (!record || typeof record !== "object" || !record.token) {
+        try {
           localStorage.setItem(
             "sveltia-cms.user",
             JSON.stringify({ backendName: "github", token: "access-gated-proxy" })
           );
+        } catch (e) {
+          /* storage unavailable — the manual sign-in below still works
+             (any typed token value is accepted; the Worker proxy holds
+             the real credential) */
         }
-      } catch (e) {
-        /* storage unavailable — the manual sign-in below still works */
       }
     })();
   </script>
