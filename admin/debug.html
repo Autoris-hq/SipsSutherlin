@@ -28,9 +28,18 @@
       log("host: " + location.hostname + "   time: " + new Date().toISOString());
       try {
         var rec = localStorage.getItem("sveltia-cms.user");
-        log("stored session: " + (rec ? rec.slice(0, 120) : "(none)"));
+        log("stored session (raw): " + (rec === null ? "(none)" : JSON.stringify(rec.slice(0, 120))));
+        try {
+          var parsed = JSON.parse(rec || "null");
+          log("stored session parses: yes; has token: " + !!(parsed && parsed.token));
+        } catch (e2) {
+          log("stored session parses: NO (corrupt) — " + e2.message);
+        }
+        localStorage.setItem("sips-debug-write-test", "ok");
+        localStorage.removeItem("sips-debug-write-test");
+        log("storage writable: yes");
       } catch (e) {
-        log("stored session: unreadable (" + e.message + ")");
+        log("storage: BLOCKED (" + e.message + ")");
       }
       async function probe(label, url, opts) {
         try {
