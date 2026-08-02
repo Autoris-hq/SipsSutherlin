@@ -5,17 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
   <title>Sips — Site Admin</title>
+  <script>
+    /* Silent sign-in on the live site. The Worker proxy (worker.js)
+       injects the real GitHub credentials server-side — gated by the
+       Cloudflare Access email login — so the CMS just needs any token
+       value. Pre-seeding its stored session before it boots means owners
+       never see a sign-in dialog at all: email code → editor.
+       (Skipped off-domain so local development still shows sign-in.) */
+    (function () {
+      if (!/(^|\.)sutherlinsips\.com$/.test(location.hostname)) {
+        return;
+      }
+      try {
+        var existing = localStorage.getItem("sveltia-cms.user");
+        if (!existing || !JSON.parse(existing).token) {
+          localStorage.setItem(
+            "sveltia-cms.user",
+            JSON.stringify({ backendName: "github", token: "access-gated-proxy" })
+          );
+        }
+      } catch (e) {
+        /* storage unavailable — the manual sign-in below still works */
+      }
+    })();
+  </script>
 </head>
 <body>
-  <!-- Sveltia CMS (self-hosted bundle): a static admin panel that
-       reads/writes this GitHub repo. Sign in with a GitHub account that
-       has write access, using "Sign In Using Access Token" with a
-       fine-grained personal access token (see repo README). -->
+  <!-- Sveltia CMS (self-hosted, version-pinned bundle): a static admin
+       panel that reads/writes this GitHub repo through the Worker proxy. -->
   <script src="sveltia-cms.js"></script>
   <script>
-    /* Our setup has no OAuth relay, so the "Sign In with GitHub" button
-       always dead-ends at a Netlify 404. Hide it, leaving only the
-       working "Sign In Using Access Token" option. */
+    /* Fallback UI cleanup, only relevant if the silent sign-in above
+       couldn't run: hide the OAuth button (no relay deployed — it
+       dead-ends at a Netlify 404), leaving the token option. Any typed
+       value works on the live site; the proxy supplies real credentials. */
     (function () {
       function hideOAuthButton(root) {
         root.querySelectorAll("button").forEach(function (btn) {
@@ -30,43 +53,6 @@
       });
       observer.observe(document.documentElement, { childList: true, subtree: true });
       hideOAuthButton(document);
-    })();
-
-    /* Auto sign-in on the live site: the Worker proxy supplies the real
-       GitHub credentials server-side (gated by Cloudflare Access), so the
-       CMS just needs any token value. Click through the dialog so owners
-       never see it. Runs once per page load; the manual buttons remain
-       as a fallback if anything changes. */
-    (function () {
-      if (!/(^|\.)sutherlinsips\.com$/.test(location.hostname)) {
-        return;
-      }
-      var attempts = 0;
-      var timer = setInterval(function () {
-        attempts++;
-        if (attempts > 40) {
-          clearInterval(timer);
-          return;
-        }
-        var buttons = Array.prototype.slice.call(document.querySelectorAll("button"));
-        var input = document.querySelector("input[type=text], input[type=password]");
-        var signIn = buttons.find(function (b) {
-          return b.textContent.trim() === "Sign In";
-        });
-        if (input && signIn) {
-          input.value = "access-gated-proxy";
-          input.dispatchEvent(new Event("input", { bubbles: true }));
-          signIn.click();
-          clearInterval(timer);
-          return;
-        }
-        var tokenBtn = buttons.find(function (b) {
-          return /Access Token/i.test(b.textContent);
-        });
-        if (tokenBtn) {
-          tokenBtn.click();
-        }
-      }, 250);
     })();
   </script>
 </body>
