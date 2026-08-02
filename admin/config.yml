@@ -6,6 +6,8 @@ backend:
   # server-side (see worker.js). GraphQL derives to /api/graphql.
   api_root: https://sutherlinsips.com/api/v3
   graphql_api_root: https://sutherlinsips.com/api/graphql
+  # Send the browser's Cloudflare Access cookie with API requests
+  include_credentials: true
 
 site_url: https://sutherlinsips.com/
 media_folder: "assets/uploads"
