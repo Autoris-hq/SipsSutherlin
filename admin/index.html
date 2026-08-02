@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
   <title>Sips — Site Admin</title>
+  <!-- Cache-busted config URL: browsers holding a pre-fix cached
+       config.yml would otherwise run without include_credentials. -->
+  <link rel="cms-config-url" href="config.yml?v=3" />
   <script>
     /* Silent sign-in on the live site. The Worker proxy (worker.js)
        injects the real GitHub credentials server-side — gated by the
