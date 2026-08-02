@@ -120,9 +120,22 @@ async function proxyGithub(request, env, url) {
   const body =
     request.method === "GET" || request.method === "HEAD" ? undefined : await request.arrayBuffer();
   const upstream = await fetch(target, { method: request.method, headers, body });
-  const respHeaders = new Headers(upstream.headers);
-  respHeaders.delete("set-cookie");
-  return new Response(upstream.body, { status: upstream.status, headers: respHeaders });
+  /* Rebuild the response from a buffered body with fresh headers. Copying
+     upstream headers wholesale can leak a stale content-encoding /
+     content-length pair (the runtime decompresses bodies transparently),
+     which truncates large JSON responses in the browser. */
+  const respHeaders = new Headers();
+  for (const name of ["content-type", "etag", "link"]) {
+    const value = upstream.headers.get(name);
+    if (value) {
+      respHeaders.set(name, value);
+    }
+  }
+  if (upstream.status === 204 || upstream.status === 304) {
+    return new Response(null, { status: upstream.status, headers: respHeaders });
+  }
+  const payload = await upstream.arrayBuffer();
+  return new Response(payload, { status: upstream.status, headers: respHeaders });
 }
 
 export default {
