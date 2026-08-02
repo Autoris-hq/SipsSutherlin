@@ -144,6 +144,14 @@ export default {
     if (url.pathname === "/api/graphql" || url.pathname.startsWith("/api/v3/")) {
       return proxyGithub(request, env, url);
     }
-    return env.ASSETS.fetch(request);
+    const resp = await env.ASSETS.fetch(request);
+    /* The admin shell must never be served stale — outdated copies have
+       old sign-in logic. Force revalidation on every load (it's tiny). */
+    if (url.pathname === "/admin" || url.pathname.startsWith("/admin/")) {
+      const headers = new Headers(resp.headers);
+      headers.set("cache-control", "no-cache");
+      return new Response(resp.body, { status: resp.status, headers });
+    }
+    return resp;
   },
 };
