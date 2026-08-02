@@ -141,6 +141,12 @@ async function proxyGithub(request, env, url) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    /* One canonical host: www has separate cookies/storage from the apex,
+       which splits login state and confuses the admin. Redirect it. */
+    if (url.hostname.startsWith("www.")) {
+      url.hostname = url.hostname.slice(4);
+      return Response.redirect(url.toString(), 301);
+    }
     if (url.pathname === "/api/graphql" || url.pathname.startsWith("/api/v3/")) {
       return proxyGithub(request, env, url);
     }
