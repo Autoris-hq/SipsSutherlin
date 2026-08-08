@@ -950,6 +950,130 @@ h2.display {
   margin-top: 1.5rem;
 }
 
+/* Scoreboard, name entry, and prize */
+
+.sc-board-title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--deep);
+  margin: 1.3rem 0 0.6rem;
+}
+
+.sc-board {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+  text-align: left;
+}
+
+.sc-board li {
+  display: grid;
+  grid-template-columns: 2.2rem 1fr auto;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.8rem;
+  background: var(--cream);
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+}
+
+.sc-board li:first-child {
+  background: var(--yellow);
+}
+
+.sc-rank {
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.sc-name {
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sc-pts {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  color: var(--deep);
+}
+
+.sc-empty,
+.sc-loading {
+  font-size: 0.9rem;
+  color: rgba(17, 17, 17, 0.6);
+}
+
+.sc-entry-label {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 1.1rem 0 0.5rem;
+}
+
+.sc-entry-row {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.sc-name-input {
+  flex: 1;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 0.6em 0.9em;
+  border: var(--outline);
+  border-radius: 10px;
+  background: var(--cream);
+}
+
+.sc-name-input:focus {
+  outline: none;
+  border-color: var(--green);
+}
+
+.sc-saved {
+  font-weight: 600;
+  color: var(--deep);
+  margin: 1rem 0 0.3rem;
+}
+
+.sc-err {
+  color: var(--coral);
+  font-weight: 600;
+  margin: 1rem 0 0.3rem;
+}
+
+.sc-prize {
+  background: var(--yellow);
+  border: var(--outline);
+  border-radius: var(--radius);
+  box-shadow: 5px 5px 0 var(--ink);
+  padding: 1.1rem;
+  margin: 1rem 0;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+
+.sc-prize-date {
+  display: block;
+  margin-top: 0.5rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: rgba(17, 17, 17, 0.7);
+}
+
 /* ---------- Reveal ---------- */
 
 .reveal {

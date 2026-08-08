@@ -83,6 +83,77 @@
     }
   }
 
+  /* ---------- Shared scoreboard (Cloudflare KV via the Worker) ---------- */
+
+  var NAME_KEY = "sips-catch-name";
+
+  function savedName() {
+    try {
+      return localStorage.getItem(NAME_KEY) || "";
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function rememberName(n) {
+    try {
+      localStorage.setItem(NAME_KEY, n);
+    } catch (e) {
+      /* ignore */
+    }
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  function fetchBoard() {
+    return fetch("/scores", { headers: { accept: "application/json" } })
+      .then(function (r) {
+        return r.ok ? r.json() : null;
+      })
+      .catch(function () {
+        return null;
+      });
+  }
+
+  function submitScore(name, score) {
+    return fetch("/scores", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ name: name, score: score }),
+    })
+      .then(function (r) {
+        return r.ok ? r.json() : null;
+      })
+      .catch(function () {
+        return null;
+      });
+  }
+
+  function boardHtml(board) {
+    if (!board || !board.top || !board.top.length) {
+      return '<p class="sc-empty">No scores yet — be the first!</p>';
+    }
+    var rows = board.top
+      .map(function (e, i) {
+        var rank = i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : i + 1 + ".";
+        return (
+          '<li><span class="sc-rank">' +
+          rank +
+          '</span><span class="sc-name">' +
+          escapeHtml(e.name) +
+          '</span><span class="sc-pts">' +
+          e.score +
+          "</span></li>"
+        );
+      })
+      .join("");
+    return '<ol class="sc-board">' + rows + "</ol>";
+  }
+
   function openGame() {
     if (game) return;
     var overlay = el("div", "sc-overlay");
@@ -140,12 +211,21 @@
     game.cupX = game.arena.clientWidth / 2;
     positionCup();
     renderLives();
-    showModal(
-      "You found the secret stand!",
-      "Catch the falling sips in your cup — move with your mouse, finger, or arrow keys. Miss three and the stand closes." +
-        (best() ? "<br><br>Your best so far: <strong>" + best() + "</strong>" : ""),
-      "Start Catching"
-    );
+    fetchBoard().then(function (board) {
+      var hi =
+        board && board.high
+          ? "<br><br>🏆 High score: <strong>" +
+            board.high.score +
+            "</strong> by " +
+            escapeHtml(board.high.name)
+          : "";
+      showModal(
+        "You found the secret stand!",
+        "Catch the falling sips in your cup — move with your finger, mouse, or arrow keys. Miss three and the stand closes." +
+          hi,
+        "Start Catching"
+      );
+    });
   }
 
   function closeGame() {
@@ -287,13 +367,88 @@
     game.running = false;
     cancelAnimationFrame(game.raf);
     saveBest(game.score);
-    var line =
-      game.score > 0 && game.score >= best()
-        ? "New best score — the whole stand is cheering! 🎉"
-        : best() > 0
-        ? "Best so far: <strong>" + best() + "</strong>"
-        : "The ice was slippery — try another round!";
-    showModal("The stand is closed!", "You caught <strong>" + game.score + "</strong> sips. " + line, "Play Again");
+    var score = game.score;
+
+    var modal = el("div", "sc-modal");
+    var card = el("div", "sc-card");
+    modal.appendChild(card);
+    game.overlay.appendChild(modal);
+
+    card.innerHTML =
+      '<h2 class="display">The stand is closed!</h2>' +
+      "<p>You caught <strong>" + score + "</strong> sips.</p>" +
+      "<div data-sc-prize></div>" +
+      "<div data-sc-entry></div>" +
+      '<div class="sc-board-wrap" data-sc-boardwrap><p class="sc-loading">Loading scoreboard…</p></div>' +
+      '<div class="sc-card-actions">' +
+      '<button class="btn btn-lime" data-sc-again>Play Again</button>' +
+      '<button class="btn" data-sc-exit>Back to the Site</button>' +
+      "</div>";
+
+    card.querySelector("[data-sc-again]").addEventListener("click", function () {
+      modal.remove();
+      startRound();
+    });
+    card.querySelector("[data-sc-exit]").addEventListener("click", closeGame);
+
+    var boardWrap = card.querySelector("[data-sc-boardwrap]");
+    var entryWrap = card.querySelector("[data-sc-entry]");
+    var prizeWrap = card.querySelector("[data-sc-prize]");
+
+    function renderBoard(board) {
+      boardWrap.innerHTML = '<h3 class="sc-board-title">Scoreboard</h3>' + boardHtml(board);
+    }
+
+    if (score <= 0) {
+      entryWrap.innerHTML = "<p>The ice was slippery — try another round!</p>";
+      fetchBoard().then(renderBoard);
+      return;
+    }
+
+    entryWrap.innerHTML =
+      '<label class="sc-entry-label">Add your name to the scoreboard:</label>' +
+      '<div class="sc-entry-row">' +
+      '<input class="sc-name-input" maxlength="16" placeholder="Your name" value="' +
+      escapeHtml(savedName()) +
+      '" />' +
+      '<button class="btn btn-yellow" data-sc-submit>Submit</button>' +
+      "</div>";
+    fetchBoard().then(renderBoard);
+
+    var submitBtn = entryWrap.querySelector("[data-sc-submit]");
+    var input = entryWrap.querySelector(".sc-name-input");
+    input.focus();
+
+    function doSubmit() {
+      var name = (input.value || "").trim() || "Anonymous";
+      rememberName(name);
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Saving…";
+      submitScore(name, score).then(function (res) {
+        if (!res) {
+          entryWrap.innerHTML =
+            '<p class="sc-err">Couldn\'t reach the scoreboard — check your connection and try again.</p>';
+          return;
+        }
+        entryWrap.innerHTML =
+          '<p class="sc-saved">Saved! You\'re #' + (res.rank || "?") + " on the board.</p>";
+        renderBoard(res);
+        if (res.isHighScore) {
+          prizeWrap.innerHTML =
+            '<div class="sc-prize">🏆 NEW HIGH SCORE!<br>Show this screen at the window for a <strong>free drink</strong>!' +
+            '<span class="sc-prize-date">' +
+            new Date().toLocaleDateString() +
+            "</span></div>";
+        }
+      });
+    }
+
+    submitBtn.addEventListener("click", doSubmit);
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        doSubmit();
+      }
+    });
   }
 
   /* ---------- Hidden triggers ---------- */
