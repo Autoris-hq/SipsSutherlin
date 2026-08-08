@@ -950,6 +950,48 @@ h2.display {
   margin-top: 1.5rem;
 }
 
+/* How-to-play intro */
+
+.sc-intro-lead {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.sc-how {
+  list-style: none;
+  margin: 0 auto 0.4rem;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+  text-align: left;
+  max-width: 340px;
+}
+
+.sc-how li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.94rem;
+  line-height: 1.4;
+}
+
+.sc-how .sc-ic {
+  flex: 0 0 1.5rem;
+  font-size: 1.15rem;
+  text-align: center;
+}
+
+.sc-how .sc-tx {
+  flex: 1;
+}
+
+.sc-hiline {
+  margin-top: 1rem;
+  font-weight: 600;
+  color: var(--deep);
+}
+
 /* Scoreboard, name entry, and prize */
 
 .sc-board-title {
