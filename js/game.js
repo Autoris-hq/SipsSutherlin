@@ -214,17 +214,22 @@
     fetchBoard().then(function (board) {
       var hi =
         board && board.high
-          ? "<br><br>🏆 High score: <strong>" +
+          ? '<p class="sc-hiline">🏆 High score to beat: <strong>' +
             board.high.score +
             "</strong> by " +
-            escapeHtml(board.high.name)
+            escapeHtml(board.high.name) +
+            "</p>"
           : "";
-      showModal(
-        "You found the secret stand!",
-        "Catch the falling sips in your cup — move with your finger, mouse, or arrow keys. Miss three and the stand closes." +
-          hi,
-        "Start Catching"
-      );
+      var body =
+        '<p class="sc-intro-lead">Catch the falling drinks in your Sips cup!</p>' +
+        '<ul class="sc-how">' +
+        '<li><span class="sc-ic">👆</span><span class="sc-tx"><strong>Move:</strong> drag your finger (or move the mouse / arrow keys)</span></li>' +
+        '<li><span class="sc-ic">🥤</span><span class="sc-tx"><strong>Catch:</strong> ice, sodas, smoothies &amp; coffee</span></li>' +
+        '<li><span class="sc-ic">❤️</span><span class="sc-tx"><strong>3 misses</strong> and the stand closes</span></li>' +
+        '<li><span class="sc-ic">🏆</span><span class="sc-tx">Beat the high score to win a <strong>free drink!</strong></span></li>' +
+        "</ul>" +
+        hi;
+      showModal("How to play", body, "Start Catching");
     });
   }
 
@@ -244,7 +249,7 @@
       "sc-modal",
       '<div class="sc-card">' +
         '<h2 class="display">' + title + "</h2>" +
-        "<p>" + bodyHtml + "</p>" +
+        '<div class="sc-modal-body">' + bodyHtml + "</div>" +
         '<div class="sc-card-actions">' +
         '<button class="btn btn-lime" data-sc-start>' + buttonLabel + "</button>" +
         '<button class="btn" data-sc-exit>Back to the Site</button>' +
