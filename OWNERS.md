@@ -26,6 +26,21 @@ Only these emails can get codes:
   iPhone/CapCut "HEVC" exports won't play for most visitors.
 - Logins last about a day per device before asking for a new code.
 
+## The hidden game & scoreboard
+
+The website has a hidden game — **triple-tap the little sun** next to the
+hero photo (or type `sips` on a keyboard). Players slide a Sips cup to
+catch falling drinks.
+
+- **High scores** are shared across everyone and shown in the game.
+- **Free drink:** when a player beats the all-time high score, the game
+  shows "🏆 New high score — show this screen at the window for a free
+  drink!" with the date. Have them show you that screen to claim it.
+- **Reset the scoreboard** anytime at
+  **sutherlinsips.com/admin/scores.html** — sign in with your email code
+  (same as the editor), then click **Reset Scoreboard**. It clears every
+  score so a new contest can start.
+
 ## If something looks wrong
 
 - A change not showing? Wait one minute, then refresh the page.

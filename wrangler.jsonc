@@ -13,5 +13,8 @@
   "assets": {
     "directory": ".",
     "binding": "ASSETS"
-  }
+  },
+  "kv_namespaces": [
+    { "binding": "SCORES", "id": "17beadd8676c4dd0a7590a1a836f5840" }
+  ]
 }

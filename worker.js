@@ -138,6 +138,90 @@ async function proxyGithub(request, env, url) {
   return new Response(payload, { status: upstream.status, headers: respHeaders });
 }
 
+/* ---------- Secret Sips Catch — shared scoreboard (Cloudflare KV) ---------- */
+
+const SCORE_KEY = "leaderboard";
+const MAX_TOP = 10;
+const MAX_SCORE = 100000;
+
+function scoreJson(obj, status) {
+  return new Response(JSON.stringify(obj), {
+    status: status,
+    headers: { "content-type": "application/json", "cache-control": "no-store" },
+  });
+}
+
+async function readBoard(env) {
+  if (!env.SCORES) {
+    return { top: [], updated: null };
+  }
+  var raw = await env.SCORES.get(SCORE_KEY);
+  if (!raw) {
+    return { top: [], updated: null };
+  }
+  try {
+    var parsed = JSON.parse(raw);
+    return { top: Array.isArray(parsed.top) ? parsed.top : [], updated: parsed.updated || null };
+  } catch (e) {
+    return { top: [], updated: null };
+  }
+}
+
+function boardView(board) {
+  return { top: board.top || [], high: (board.top && board.top[0]) || null, updated: board.updated || null };
+}
+
+async function handleGetScores(env) {
+  return scoreJson(boardView(await readBoard(env)), 200);
+}
+
+async function handlePostScore(request, env) {
+  if (!env.SCORES) {
+    return scoreJson({ message: "Scoreboard is not configured." }, 503);
+  }
+  var body;
+  try {
+    body = await request.json();
+  } catch (e) {
+    return scoreJson({ message: "Invalid request body." }, 400);
+  }
+  var name = String((body && body.name) || "").replace(/[<>]/g, "").trim().slice(0, 16);
+  if (!name) {
+    name = "Anonymous";
+  }
+  var score = Math.floor(Number(body && body.score));
+  if (!Number.isFinite(score) || score < 0 || score > MAX_SCORE) {
+    return scoreJson({ message: "Invalid score." }, 400);
+  }
+  var board = await readBoard(env);
+  var prevHigh = (board.top[0] && board.top[0].score) || 0;
+  var entry = { name: name, score: score, ts: new Date().toISOString() };
+  var top = board.top
+    .concat([entry])
+    .sort(function (a, b) {
+      return b.score - a.score;
+    })
+    .slice(0, MAX_TOP);
+  var newBoard = { top: top, updated: entry.ts };
+  await env.SCORES.put(SCORE_KEY, JSON.stringify(newBoard));
+  var view = boardView(newBoard);
+  view.isHighScore = score > prevHigh;
+  view.madeBoard = top.indexOf(entry) !== -1;
+  view.rank = top.indexOf(entry) + 1;
+  return scoreJson(view, 200);
+}
+
+async function handleResetScores(request, env) {
+  if (!env.SCORES) {
+    return scoreJson({ message: "Scoreboard is not configured." }, 503);
+  }
+  if (!(await verifyAccessJwt(request, env))) {
+    return scoreJson({ message: "Unauthorized: owner sign-in required." }, 401);
+  }
+  await env.SCORES.put(SCORE_KEY, JSON.stringify({ top: [], updated: new Date().toISOString() }));
+  return scoreJson({ ok: true, top: [] }, 200);
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -146,6 +230,22 @@ export default {
     if (url.hostname.startsWith("www.")) {
       url.hostname = url.hostname.slice(4);
       return Response.redirect(url.toString(), 301);
+    }
+    /* Public scoreboard (NOT under /api*, so not gated by Cloudflare Access
+       — players must be able to read and submit without signing in). */
+    if (url.pathname === "/scores") {
+      if (request.method === "GET") {
+        return handleGetScores(env);
+      }
+      if (request.method === "POST") {
+        return handlePostScore(request, env);
+      }
+      return scoreJson({ message: "Method not allowed." }, 405);
+    }
+    /* Owner-only reset lives under /api* so Cloudflare Access gates it, and
+       the Worker double-checks the Access JWT. */
+    if (url.pathname === "/api/scores/reset" && request.method === "POST") {
+      return handleResetScores(request, env);
     }
     if (url.pathname === "/api/graphql" || url.pathname.startsWith("/api/v3/")) {
       return proxyGithub(request, env, url);

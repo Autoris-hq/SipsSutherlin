@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Sips — Scoreboard Admin</title>
+  <style>
+    :root {
+      --lime: #7ac943; --deep: #2e6b30; --ink: #111; --cream: #f7f7f2;
+      --yellow: #ffc83d; --coral: #ff6b6b; --white: #fff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Poppins", system-ui, sans-serif; background: var(--cream);
+      color: var(--ink); line-height: 1.6; padding: 2rem 1.2rem; min-height: 100vh;
+    }
+    .wrap { max-width: 520px; margin: 0 auto; }
+    h1 { font-size: 1.7rem; margin-bottom: 0.3rem; }
+    .sub { color: rgba(17,17,17,0.6); font-size: 0.9rem; margin-bottom: 1.6rem; }
+    .card {
+      background: var(--white); border: 3px solid var(--ink);
+      border-radius: 16px; box-shadow: 6px 6px 0 var(--ink);
+      padding: 1.6rem; margin-bottom: 1.4rem;
+    }
+    ol { list-style: none; display: grid; gap: 0.4rem; }
+    li {
+      display: grid; grid-template-columns: 2.4rem 1fr auto auto; gap: 0.7rem;
+      align-items: center; padding: 0.55rem 0.8rem; background: var(--cream);
+      border: 2px solid var(--ink); border-radius: 10px;
+    }
+    li:first-child { background: var(--yellow); }
+    .rank { text-align: center; font-size: 1.1rem; }
+    .name { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .pts { font-weight: 800; color: var(--deep); }
+    .when { font-size: 0.72rem; color: rgba(17,17,17,0.5); }
+    .empty { color: rgba(17,17,17,0.6); }
+    button {
+      font-family: inherit; font-weight: 800; font-size: 0.9rem; letter-spacing: 0.04em;
+      text-transform: uppercase; padding: 0.8em 1.5em; border-radius: 999px;
+      border: 3px solid var(--ink); box-shadow: 4px 4px 0 var(--ink); cursor: pointer;
+      background: var(--white); transition: transform .1s, box-shadow .1s;
+    }
+    button:hover { transform: translate(2px,2px); box-shadow: 2px 2px 0 var(--ink); }
+    button:disabled { opacity: 0.5; cursor: default; transform: none; box-shadow: 4px 4px 0 var(--ink); }
+    .danger { background: var(--coral); color: var(--white); }
+    .row { display: flex; gap: 0.8rem; flex-wrap: wrap; align-items: center; }
+    .msg { margin-top: 0.9rem; font-weight: 600; }
+    .msg.ok { color: var(--deep); }
+    .msg.bad { color: var(--coral); }
+    a.back { color: var(--deep); font-weight: 600; text-decoration: none; }
+    a.back:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>🏆 Sips Scoreboard</h1>
+    <p class="sub">Secret Sips Catch high scores. You're signed in as the owner.</p>
+
+    <div class="card">
+      <div id="board"><p class="empty">Loading…</p></div>
+    </div>
+
+    <div class="card">
+      <div class="row">
+        <button class="danger" id="reset">Reset Scoreboard</button>
+        <button id="refresh">Refresh</button>
+      </div>
+      <p class="sub" style="margin:0.8rem 0 0">Resetting clears every score and starts fresh. This can't be undone.</p>
+      <p class="msg" id="msg"></p>
+    </div>
+
+    <p><a class="back" href="../">← Back to the website</a></p>
+  </div>
+
+  <script>
+    var boardEl = document.getElementById("board");
+    var msgEl = document.getElementById("msg");
+
+    function esc(s) {
+      return String(s).replace(/[&<>"']/g, function (c) {
+        return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+      });
+    }
+
+    function render(board) {
+      var top = (board && board.top) || [];
+      if (!top.length) {
+        boardEl.innerHTML = '<p class="empty">No scores yet.</p>';
+        return;
+      }
+      boardEl.innerHTML =
+        "<ol>" +
+        top
+          .map(function (e, i) {
+            var rank = i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : i + 1 + ".";
+            var when = "";
+            try {
+              when = e.ts ? new Date(e.ts).toLocaleDateString() : "";
+            } catch (x) {}
+            return (
+              '<li><span class="rank">' + rank + "</span>" +
+              '<span class="name">' + esc(e.name) + "</span>" +
+              '<span class="pts">' + e.score + "</span>" +
+              '<span class="when">' + when + "</span></li>"
+            );
+          })
+          .join("") +
+        "</ol>";
+    }
+
+    function load() {
+      fetch("/scores", { headers: { accept: "application/json" } })
+        .then(function (r) { return r.json(); })
+        .then(render)
+        .catch(function () {
+          boardEl.innerHTML = '<p class="empty">Couldn\'t load scores.</p>';
+        });
+    }
+
+    document.getElementById("refresh").addEventListener("click", function () {
+      msgEl.textContent = "";
+      load();
+    });
+
+    document.getElementById("reset").addEventListener("click", function () {
+      if (!confirm("Reset the scoreboard? This clears every score and can't be undone.")) {
+        return;
+      }
+      var btn = this;
+      btn.disabled = true;
+      msgEl.className = "msg";
+      msgEl.textContent = "Resetting…";
+      fetch("/api/scores/reset", { method: "POST", credentials: "include" })
+        .then(function (r) {
+          return r.json().then(function (data) {
+            return { ok: r.ok, data: data };
+          });
+        })
+        .then(function (res) {
+          btn.disabled = false;
+          if (res.ok) {
+            msgEl.className = "msg ok";
+            msgEl.textContent = "Scoreboard reset. It's empty and ready for new high scores.";
+            render({ top: [] });
+          } else {
+            msgEl.className = "msg bad";
+            msgEl.textContent = (res.data && res.data.message) || "Reset failed. Try reloading this page.";
+          }
+        })
+        .catch(function () {
+          btn.disabled = false;
+          msgEl.className = "msg bad";
+          msgEl.textContent = "Reset failed — check your connection and try again.";
+        });
+    });
+
+    load();
+  </script>
+</body>
+</html>
