@@ -3,14 +3,57 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sips — Sutherlin, OR | Sodas, Smoothies, Açaí Bowls &amp; More</title>
-  <meta name="description" content="Good vibes. Cold sips. Sips is a drive-thru at 1100 W Central Ave in Sutherlin, Oregon serving sodas, smoothies, açaí bowls, coffee and more." />
-  <meta property="og:title" content="Sips — Sutherlin, OR" />
-  <meta property="og:description" content="Good vibes. Cold sips. Refreshing drinks for every kind of sipper." />
-  <!-- Canonical home: sutherlinsips.com -->
+  <title>Sips Drive-Thru — Dirty Sodas, Açaí Bowls &amp; Coffee | Sutherlin, Oregon</title>
+  <meta name="description" content="Sips is a drive-thru in Sutherlin, Oregon serving custom dirty sodas, açaí bowls, smoothies, protein shakes, energy drinks, coffee, and breakfast burritos &amp; sandwiches. Order online or swing through." />
+  <link rel="canonical" href="https://sutherlinsips.com/" />
+  <meta property="og:type" content="business.business" />
+  <meta property="og:title" content="Sips Drive-Thru — Sutherlin, Oregon" />
+  <meta property="og:description" content="Custom dirty sodas, açaí bowls, smoothies, protein shakes, energy drinks, coffee, and breakfast burritos &amp; sandwiches at our Sutherlin, Oregon drive-thru." />
+  <meta property="og:url" content="https://sutherlinsips.com/" />
   <meta property="og:image" content="https://sutherlinsips.com/assets/brand/banner.png" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+  <!-- LocalBusiness structured data. FIELDS TO CONFIRM WITH OWNER before
+       relying on them are commented out below (telephone, hours, geo,
+       Google profile URL) — do not guess these. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": ["CafeOrCoffeeShop", "Restaurant"],
+    "name": "Sips",
+    "alternateName": "Sutherlin Sips",
+    "description": "Drive-thru in Sutherlin, Oregon serving custom dirty sodas, açaí bowls, smoothies, protein shakes, energy drinks, coffee, and breakfast burritos and sandwiches.",
+    "url": "https://sutherlinsips.com/",
+    "image": "https://sutherlinsips.com/assets/brand/banner.png",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "1100 W Central Ave",
+      "addressLocality": "Sutherlin",
+      "addressRegion": "OR",
+      "postalCode": "97479",
+      "addressCountry": "US"
+    },
+    "servesCuisine": ["Coffee", "Smoothies", "Açaí Bowls", "Breakfast"],
+    "priceRange": "$",
+    "hasMenu": "https://masa.plus/store/13557",
+    "sameAs": [
+      "https://www.facebook.com/profile.php?id=61573799062839",
+      "https://www.instagram.com/sutherlinsips/",
+      "https://www.tiktok.com/@sutherlinsips"
+    ]
+    /* TODO — add once confirmed with owner (do not guess):
+    ,"telephone": "+1-541-XXX-XXXX"
+    ,"geo": { "@type": "GeoCoordinates", "latitude": 0, "longitude": 0 }
+    ,"openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+        "opens": "00:00", "closes": "00:00" }
+    ]
+    // Add the Google Business Profile URL to sameAs above.
+    */
+  }
+  </script>
 </head>
 <body>
 
@@ -43,11 +86,12 @@
       <div class="container hero-inner">
         <div class="hero-copy">
           <p class="eyebrow">Drive-thru · Sutherlin, Oregon</p>
-          <h1 class="display hero-title">
-            <span class="line">Good vibes.</span>
-            <span class="line underlined">Cold sips.<svg class="brush-underline" aria-hidden="true"><use href="#brush"></use></svg></span>
+          <h1 class="hero-title">
+            <span class="line display">Good vibes.</span>
+            <span class="line display underlined">Cold sips.<svg class="brush-underline" aria-hidden="true"><use href="#brush"></use></svg></span>
+            <span class="hero-h1-sub">Sips is a drive-thru in Sutherlin, Oregon for dirty sodas, açaí bowls, smoothies &amp; coffee.</span>
           </h1>
-          <p class="lead">Refreshing drinks for every kind of sipper — sodas, smoothies, açaí bowls, coffee &amp; more at our drive-thru on Central Ave.</p>
+          <p class="lead">Custom dirty sodas, açaí bowls, smoothies, protein shakes, energy drinks, coffee, and breakfast burritos &amp; sandwiches — made to order at our Sutherlin drive-thru.</p>
           <div class="hero-actions">
             <a href="#menu" class="btn btn-lime" data-edit-menu>Order Online Here</a>
             <a href="https://www.google.com/maps/dir/?api=1&amp;destination=1100+W+Central+Ave,+Sutherlin,+OR+97479" target="_blank" rel="noopener" class="btn">Get Directions</a>
@@ -56,7 +100,7 @@
         <div class="hero-photo-wrap reveal">
           <svg class="hero-sticker" aria-hidden="true"><use href="#sun-line"></use></svg>
           <figure class="photo-frame hero-photo" data-label="Add photo: assets/photos/hero.jpg (the three drinks on the table)">
-            <img src="assets/photos/hero.jpg" alt="Three colorful Sips drinks over crushed ice on a picnic table" />
+            <img src="assets/uploads/featured-3.jpg" alt="Iced lattes from Sips drive-thru in Sutherlin, Oregon" />
           </figure>
         </div>
       </div>
@@ -66,29 +110,39 @@
     <section class="serves" id="menu">
       <div class="container">
         <div class="section-head">
-          <p class="eyebrow">Sodas and more</p>
-          <h2 class="display">Something for every sipper</h2>
+          <p class="eyebrow">The Sips menu</p>
+          <h2 class="display">Dirty sodas, açaí bowls &amp; more</h2>
         </div>
         <div class="serves-grid">
           <div class="serve-card reveal">
             <span class="badge-dot"><svg aria-hidden="true"><use href="#icon-soda"></use></svg></span>
-            <h3>Sodas</h3>
-            <p>Ice-cold custom sodas, mixed to order.</p>
-          </div>
-          <div class="serve-card reveal">
-            <span class="badge-dot"><svg aria-hidden="true"><use href="#icon-smoothie"></use></svg></span>
-            <h3>Smoothies</h3>
-            <p>Fresh-blended and full of fruit.</p>
+            <h3>Dirty Sodas</h3>
+            <p>Custom sodas mixed to order with your favorite flavors and cream.</p>
           </div>
           <div class="serve-card reveal">
             <span class="badge-dot"><svg aria-hidden="true"><use href="#icon-bowl"></use></svg></span>
             <h3>Açaí Bowls</h3>
-            <p>Topped fresh, every time.</p>
+            <p>Blended açaí topped fresh with fruit and granola.</p>
+          </div>
+          <div class="serve-card reveal">
+            <span class="badge-dot"><svg aria-hidden="true"><use href="#icon-smoothie"></use></svg></span>
+            <h3>Smoothies &amp; Protein Shakes</h3>
+            <p>Fresh-blended smoothies and protein shakes.</p>
           </div>
           <div class="serve-card reveal">
             <span class="badge-dot"><svg aria-hidden="true"><use href="#icon-coffee"></use></svg></span>
-            <h3>Coffee &amp; More</h3>
-            <p>Plus plenty of other favorites at the window.</p>
+            <h3>Coffee &amp; Espresso</h3>
+            <p>Hot and iced coffee, lattes, and espresso drinks.</p>
+          </div>
+          <div class="serve-card reveal">
+            <span class="badge-dot"><svg aria-hidden="true"><use href="#icon-bolt"></use></svg></span>
+            <h3>Energy Drinks</h3>
+            <p>Custom energy drinks to power your day.</p>
+          </div>
+          <div class="serve-card reveal">
+            <span class="badge-dot"><svg aria-hidden="true"><use href="#icon-food"></use></svg></span>
+            <h3>Breakfast Burritos &amp; Sandwiches</h3>
+            <p>Breakfast burritos and breakfast sandwiches made to order.</p>
           </div>
         </div>
       </div>
@@ -103,13 +157,13 @@
         </div>
         <div class="featured-grid">
           <figure class="photo-frame reveal" data-label="Add photo: assets/photos/featured-1.jpg (the açaí bowl)">
-            <img src="assets/photos/featured-1.jpg" alt="An açaí bowl topped with blueberries, strawberries, banana, and coconut" />
+            <img src="assets/photos/featured-1.jpg" alt="Açaí bowl with berries, banana and coconut at Sips drive-thru in Sutherlin, Oregon" />
           </figure>
           <figure class="photo-frame reveal" data-label="Add photo: assets/photos/featured-2.jpg (littlest Sips fan at the stand)">
-            <img src="assets/photos/featured-2.jpg" alt="Sips' littlest fan in a green bow and heart sunglasses in front of the stand" />
+            <img src="assets/photos/featured-2.jpg" alt="A young customer at the Sips drive-thru in Sutherlin, Oregon" />
           </figure>
           <figure class="photo-frame reveal" data-label="Add photo: assets/photos/featured-3.jpg (a drink close-up)">
-            <img src="assets/photos/featured-3.jpg" alt="A featured Sips drink" />
+            <img src="assets/photos/featured-3.jpg" alt="Iced coffee lattes from Sips drive-thru in Sutherlin, Oregon" />
           </figure>
         </div>
         <p class="featured-note">
@@ -144,12 +198,12 @@
           <h2 class="display" data-edit-about-heading>Made in Sutherlin</h2>
           <!-- Editable via /admin — content lives in content/site.json -->
           <div data-edit-about-body>
-            <p>Sips is a locally run drive-thru right on West Central Avenue in Sutherlin, Oregon. We opened in 2025 with a ribbon cutting alongside the Sutherlin Area Chamber, and we've been pouring for our neighbors ever since.</p>
+            <p>Sips is a locally run drive-thru right on West Central Avenue in Sutherlin, Oregon. We opened in 2025 with a ribbon cutting alongside the Sutherlin Area Chamber, and we've been serving custom dirty sodas, açaí bowls, smoothies, protein shakes, energy drinks, coffee, and breakfast burritos &amp; sandwiches ever since.</p>
             <p>Swing through on your way to work, after school, or whenever you need something cold — we'll see you at the window.</p>
           </div>
         </div>
         <figure class="photo-frame about-photo reveal" data-label="Add photo: assets/photos/about.jpg (the lime-green Sips stand)">
-          <img src="assets/photos/about.jpg" alt="The lime-green Sips drive-thru stand in Sutherlin" />
+          <img src="assets/photos/about.jpg" alt="The Sips drive-thru coffee and soda stand in Sutherlin, Oregon" />
         </figure>
       </div>
     </section>
@@ -236,7 +290,7 @@
           <a class="logo logo-footer" href="#top" aria-label="Sips — Sutherlin, OR — home">
             <span class="logo-text"><span>S</span><svg class="logo-cup" aria-hidden="true"><use href="#logo-cup"></use></svg><span>ps</span></span>
           </a>
-          <p>Good vibes. Cold sips. Sodas, smoothies, açaí bowls, coffee &amp; more at the drive-thru on Central Ave.</p>
+          <p>Good vibes. Cold sips. Dirty sodas, açaí bowls, smoothies, protein shakes, energy drinks, coffee, and breakfast burritos &amp; sandwiches at the Sutherlin, Oregon drive-thru.</p>
           <div class="social-links">
             <a href="https://www.facebook.com/profile.php?id=61573799062839" target="_blank" rel="noopener" aria-label="Sips on Facebook"><svg><use href="#icon-facebook"></use></svg></a>
             <a href="https://www.instagram.com/sutherlinsips/" target="_blank" rel="noopener" aria-label="Sips on Instagram"><svg><use href="#icon-instagram"></use></svg></a>

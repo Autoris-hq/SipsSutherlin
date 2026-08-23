@@ -51,6 +51,14 @@
     '<path d="M22 14 L26 14 Q28 14 28 17 Q28 20 26 20 L21.5 20"/>' +
     '<path d="M11 4 Q11 6 13 7 M17 4 Q17 6 19 7"/>' +
     "</symbol>" +
+    '<symbol id="icon-bolt" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">' +
+    '<path d="M17 3 L7 18 L15 18 L13 29 L25 12 L17 12 Z"/>' +
+    "</symbol>" +
+    '<symbol id="icon-food" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">' +
+    '<path d="M5 12 Q16 5 27 12 Z"/>' +
+    '<path d="M4 12 L28 12"/>' +
+    '<path d="M6 17 L26 17 Q24 24 16 24 Q8 24 6 17 Z"/>' +
+    "</symbol>" +
     /* Visit icons */
     '<symbol id="icon-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
     '<path d="M12 21 C7 15.4 4 11.8 4 8.6 C4 4.4 7.6 2 12 2 C16.4 2 20 4.4 20 8.6 C20 11.8 17 15.4 12 21 Z"/>' +

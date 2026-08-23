@@ -376,6 +376,21 @@ h2.display {
   white-space: nowrap;
 }
 
+/* Descriptive, SEO-facing sub-line inside the H1 — kept small and in the
+   body font so the playful Bangers brand lines stay the visual focus. */
+.hero-h1-sub {
+  display: block;
+  margin-top: 0.7rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1.02rem;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--ink);
+  max-width: 34ch;
+}
+
 .hero .lead {
   margin: 1.3rem 0 1.8rem;
 }
@@ -448,7 +463,7 @@ h2.display {
 
 .serves-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.6rem;
 }
 
@@ -481,6 +496,8 @@ h2.display {
 .serve-card:nth-child(2) .badge-dot { background: var(--coral); }
 .serve-card:nth-child(3) .badge-dot { background: var(--yellow); }
 .serve-card:nth-child(4) .badge-dot { background: var(--white); }
+.serve-card:nth-child(5) .badge-dot { background: var(--yellow); }
+.serve-card:nth-child(6) .badge-dot { background: var(--aqua); }
 
 .serve-card .badge-dot svg {
   width: 30px;

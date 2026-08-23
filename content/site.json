@@ -3,22 +3,22 @@
   "featured": [
     {
       "image": "assets/photos/featured-1.jpg",
-      "alt": "An açaí bowl topped with blueberries, strawberries, banana, and coconut"
+      "alt": "Açaí bowl with berries, banana and coconut at Sips drive-thru in Sutherlin, Oregon"
     },
     {
       "image": "assets/photos/featured-2.jpg",
-      "alt": "Sips' littlest fan in a green bow and heart sunglasses in front of the stand"
+      "alt": "A young customer at the Sips drive-thru in Sutherlin, Oregon"
     },
     {
       "image": "/assets/uploads/hero.jpg",
-      "alt": "A featured Sips drink"
+      "alt": "Colorful custom sodas from Sips drive-thru in Sutherlin, Oregon"
     }
   ],
   "video": "assets/video/sips.mp4",
   "poster": "assets/video/poster.jpg",
   "aboutImage": "assets/photos/about.jpg",
   "aboutHeading": "Made in Sutherlin",
-  "aboutBody": "Sips is a locally run drive-thru right on West Central Avenue in Sutherlin, Oregon. We opened in 2025 with a ribbon cutting alongside the Sutherlin Area Chamber, and we've been pouring for our neighbors ever since.\n\nSwing through on your way to work, after school, or whenever you need something cold — we'll see you at the window.",
-  "menuLink": "HTTPS://masa.plus/store/13557",
+  "aboutBody": "Sips is a locally run drive-thru right on West Central Avenue in Sutherlin, Oregon. We opened in 2025 with a ribbon cutting alongside the Sutherlin Area Chamber, and we've been serving custom dirty sodas, açaí bowls, smoothies, protein shakes, energy drinks, coffee, and breakfast burritos & sandwiches ever since.\n\nSwing through on your way to work, after school, or whenever you need something cold — we'll see you at the window.",
+  "menuLink": "https://masa.plus/store/13557",
   "specialsLink": "https://www.facebook.com/profile.php?id=61573799062839"
 }
