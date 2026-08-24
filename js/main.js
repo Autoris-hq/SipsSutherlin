@@ -68,6 +68,9 @@
     '<circle cx="12" cy="12" r="9"/>' +
     '<path d="M12 7 L12 12 L15.5 14"/>' +
     "</symbol>" +
+    '<symbol id="icon-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+    '<path d="M6.5 3 L9 3 L10.5 8 L8.5 9.5 C9.5 12 12 14.5 14.5 15.5 L16 13.5 L21 15 L21 17.5 C21 19 19.8 20.2 18.3 20 C13.9 19.5 8 16 5 8 C4.2 5.9 5 4 6.5 3 Z"/>' +
+    "</symbol>" +
     '<symbol id="icon-car" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
     '<path d="M4 16 L4 11 L6 6 L18 6 L20 11 L20 16"/>' +
     '<path d="M2 16 L22 16"/>' +

